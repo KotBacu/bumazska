@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Вам бумажка</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fefefe;
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+    #message {
+      position: absolute;
+      font-size: 48px;
+      animation: fadeIn 2s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    #paper {
+      width: 300px;
+      height: 300px;
+      background: url('crumpled-paper.png') center/cover no-repeat;
+      position: absolute;
+      cursor: grab;
+    }
+
+    #rickroll {
+      display: none;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <div id="message">Вам бумажка</div>
+  <div id="paper"></div>
+  <iframe id="rickroll" width="560" height="315" 
+    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+  </iframe>
+
+  <script>
+    const paper = document.getElementById("paper");
+    const rick = document.getElementById("rickroll");
+
+    let isDragging = false;
+
+    paper.addEventListener("mousedown", () => {
+      isDragging = true;
+    });
+
+    document.addEventListener("mouseup", () => {
+      if (isDragging) {
+        isDragging = false;
+        paper.style.display = "none";
+        rick.style.display = "block";
+      }
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if (isDragging) {
+        paper.style.left = e.pageX - 150 + "px";
+        paper.style.top = e.pageY - 150 + "px";
+      }
+    });
+  </script>
+</body>
+</html>
